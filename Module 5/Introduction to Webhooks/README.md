@@ -1,4 +1,4 @@
-# Introduction to Webhooks — HMAC Verification & Idempotency (Starter)
+# Introduction to Webhooks: HMAC Verification & Idempotency (Starter)
 
 The webhook endpoint `POST /webhooks` currently accepts any POST request without
 verifying the sender. Implement HMAC-SHA256 signature verification, event-id
@@ -48,7 +48,7 @@ Export `handleWebhook(req, res)` and `_processedIds` (a `Set`).
 1. **Verify the HMAC-SHA256 signature.** Header `x-webhook-signature` arrives as
    `sha256=<hex>`. Compute
    `crypto.createHmac('sha256', WEBHOOK_SECRET).update(req.body).digest('hex')`
-   over `req.body` **as a Buffer** — not a parsed object. Compare with
+   over `req.body` **as a Buffer**, not a parsed object. Compare with
    `crypto.timingSafeEqual`. Missing or mismatched signature → `401`.
 2. **Parse after verification.** `const event = JSON.parse(req.body)`.
 3. **Idempotency check.** If `_processedIds.has(event.id)`, return
@@ -61,9 +61,9 @@ Export `handleWebhook(req, res)` and `_processedIds` (a `Set`).
 ## Rules
 
 - Do not modify `src/app.js`, `src/eventHandlers.js`, or `tests/run.js`.
-- HMAC must be computed over `req.body` as a **Buffer** — not a parsed or
+- HMAC must be computed over `req.body` as a **Buffer**, not a parsed or
   re-serialised object.
-- Use `crypto.timingSafeEqual` — not `===`.
+- Use `crypto.timingSafeEqual`, not `===`.
 - `handleEvent` must be called after the response is sent.
 
 ## Run the tests
@@ -93,8 +93,8 @@ All tests passed! ✓
 
 | Symptom | Likely cause |
 |---|---|
-| `Hmac.update` throws "must be of type string or an instance of Buffer" | `req.body` is a parsed object, not a Buffer — check that `express.raw()` runs before any `express.json()` middleware sees this route (see `src/app.js` comment) |
-| Test 1 fails with `501` | `handleWebhook` still returns the stub `501` — implement it |
+| `Hmac.update` throws "must be of type string or an instance of Buffer" | `req.body` is a parsed object, not a Buffer. Check that `express.raw()` runs before any `express.json()` middleware sees this route (see `src/app.js` comment) |
+| Test 1 fails with `501` | `handleWebhook` still returns the stub `501`, implement it |
 | Test 2/3 fail (no 401) | Signature comparison logic wrong, or missing-header case not handled before hashing |
 | Test 4 fails (event re-processed) | Idempotency check missing, or the id is marked *after* calling `handleEvent` instead of before |
 | Test 5 fails (`handleEvent` never called) | `setImmediate` callback missing, or `res.status(200)` never sent |
@@ -104,7 +104,7 @@ All tests passed! ✓
 1. Fork or clone this starter and create a branch in your own repository.
 2. Implement `src/webhookHandler.js`.
 3. Create a `.env` file with `WEBHOOK_SECRET=supersecretkey`.
-4. Run `npm test` — confirm `Results: 5 passed, 0 failed`.
+4. Run `npm test`, confirm `Results: 5 passed, 0 failed`.
 5. Open a PR. In the description, briefly explain: *the three steps the
    handler performs in order, and why event-id idempotency is necessary even
    for a handler that returns 200 immediately.*
