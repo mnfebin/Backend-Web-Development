@@ -1,4 +1,4 @@
-# Introduction to Webhooks: HMAC Verification & Idempotency (Starter)
+# Introduction to Webhooks
 
 The webhook endpoint `POST /webhooks` currently accepts any POST request without
 verifying the sender. Implement HMAC-SHA256 signature verification, event-id
