@@ -101,7 +101,7 @@ All tests passed! ✓
 
 ## Submission
 
-1. Fork or clone this starter and create a branch in your own repository.
+1. Fork or clone this project and create a branch in your own repository.
 2. Implement `src/webhookHandler.js`.
 3. Create a `.env` file with `WEBHOOK_SECRET=supersecretkey`.
 4. Run `npm test`, confirm `Results: 5 passed, 0 failed`.

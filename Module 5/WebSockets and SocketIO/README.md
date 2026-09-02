@@ -1,4 +1,4 @@
-# WebSockets & Socket.IO — Real-Time Comments (Starter)
+# WebSockets & Socket.IO — Real-Time Comments
 
 The backend serves a REST API but has no real-time capability. Users viewing a resource
 have to refresh the page to see new content. Add a Socket.IO server that broadcasts a
@@ -123,7 +123,7 @@ All tests passed! ✓
 
 ## Submission
 
-1. Fork or clone this starter and create a branch in your own repository.
+1. Fork or clone this project and create a branch in your own repository.
 2. Implement `src/socket.js` as described above.
 3. Run `npm test` — confirm `Results: 5 passed, 0 failed`.
 4. Do the manual two-tab check above.

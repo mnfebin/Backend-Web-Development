@@ -1,7 +1,7 @@
 {
-  "name": "websockets-socketio-starter",
+  "name": "websockets-socketio",
   "version": "1.0.0",
-  "description": "WebSockets & Socket.IO — real-time comments starter",
+  "description": "WebSockets & Socket.IO — real-time comments",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",

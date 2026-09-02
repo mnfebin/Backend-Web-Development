@@ -1,4 +1,4 @@
-# Caching with Redis: Cache-Aside on the Trending Feed (Starter)
+# Caching with Redis: Cache-Aside on the Trending Feed
 
 `GET /feed` currently queries the database on every request, even when the
 data hasn't changed in minutes. Wrap it with the cache-aside pattern using
@@ -107,7 +107,7 @@ All tests passed! ✓
 
 ## Submission
 
-1. Fork or clone this starter and create a branch in your own repository.
+1. Fork or clone this project and create a branch in your own repository.
 2. Implement `src/cache.js` and the TODOs in `src/app.js`.
 3. Run `npm test`, confirm `Results: 5 passed, 0 failed`.
 4. Open a PR. In the description, include the before/after response times

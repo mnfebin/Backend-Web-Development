@@ -1,4 +1,4 @@
-# Background Jobs with BullMQ — Email Verification OTP Flow (Starter)
+# Background Jobs with BullMQ — Email Verification OTP Flow
 
 Registration sends a welcome email synchronously, blocking the request for up to 3,000 ms.
 Move email delivery to a BullMQ background job with retries, and implement a complete
@@ -112,7 +112,7 @@ All tests passed! ✓
 
 ## Submission
 
-1. Fork or clone this starter and create a branch in your own repository.
+1. Fork or clone this project and create a branch in your own repository.
 2. Implement `src/queue.js`, `src/worker.js`, and `src/otpStore.js`.
 3. Create a `.env` file with Ethereal SMTP credentials (from https://ethereal.email/create).
 4. Run `npm test` — confirm `Results: 6 passed, 0 failed`.

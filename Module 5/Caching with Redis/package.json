@@ -1,7 +1,7 @@
 {
-  "name": "caching-with-redis-starter",
+  "name": "caching-with-redis",
   "version": "1.0.0",
-  "description": "Caching with Redis: cache-aside pattern starter",
+  "description": "Caching with Redis: cache-aside pattern",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
