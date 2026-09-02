@@ -1,7 +1,7 @@
 'use strict';
 
 // ─── YOUR FILE — implement this ───────────────────────────────────────────────
-// Export handleWebhook(req, res) — used by POST /webhooks in app.js.
+// Export handleWebhook(req, res), used by POST /webhooks in app.js.
 // Also export _processedIds (your Set or Map) for test inspection/reset.
 //
 // Steps (in order):

@@ -1,7 +1,7 @@
 'use strict';
 
 // ─── GIVEN FILE — do not modify ───────────────────────────────────────────────
-// Stub event handler — tracks calls for testing purposes
+// Stub event handler: tracks calls for testing purposes
 
 let callCount = 0;
 const processedEvents = [];

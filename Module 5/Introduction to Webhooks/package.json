@@ -1,7 +1,7 @@
 {
   "name": "webhooks-starter",
   "version": "1.0.0",
-  "description": "Introduction to Webhooks — HMAC verification, idempotency starter",
+  "description": "Introduction to Webhooks: HMAC verification, idempotency starter",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
