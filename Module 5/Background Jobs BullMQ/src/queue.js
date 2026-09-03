@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── YOUR FILE — implement this ───────────────────────────────────────────────
+// ─── YOUR FILE, implement this ───────────────────────────────────────────────
 // Create a BullMQ Queue named 'email' with a Redis connection.
 // Export { emailQueue, connection } so the worker and routes can use them.
 //

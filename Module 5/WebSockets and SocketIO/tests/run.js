@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── GIVEN FILE — do not modify ───────────────────────────────────────────────
+// ─── GIVEN FILE, do not modify ───────────────────────────────────────────────
 // Automated test suite for the WebSockets & Socket.IO assignment.
 // Run with: npm test
 
@@ -63,7 +63,7 @@ async function main() {
   const io = initSocket(httpServer);
 
   if (!io) {
-    console.log('\n  ✗ initSocket() returned null — implement src/socket.js first\n');
+    console.log('\n  ✗ initSocket() returned null, implement src/socket.js first\n');
     console.log(`Results: 0 passed, 5 failed`);
     process.exit(1);
   }
@@ -136,7 +136,7 @@ async function main() {
     a.emit('newComment', { room: 'post-42', text: 'Should not reach B' });
     await wait(300);
 
-    assert(!bReceived, 'Client B received commentAdded after leaving the room — it should not have');
+    assert(!bReceived, 'Client B received commentAdded after leaving the room, it should not have');
     a.disconnect();
     b.disconnect();
     await wait(100);

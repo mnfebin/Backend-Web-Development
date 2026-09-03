@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── GIVEN FILE — do not modify ───────────────────────────────────────────────
+// ─── GIVEN FILE, do not modify ───────────────────────────────────────────────
 // Automated test suite for the Background Jobs with BullMQ assignment.
 // Run with: npm test   (Redis must be running)
 
@@ -149,7 +149,7 @@ async function main() {
       // This requires the student's store to be manipulable for tests
       // Store and then manually override if possible
       storeOTP(testEmail, otp);
-      // Inject expiry into store — only works if otpStore exposes its Map
+      // Inject expiry into store, only works if otpStore exposes its Map
       const otpStore = require('../src/otpStore');
       if (otpStore._store) {
         const entry = otpStore._store.get(testEmail);

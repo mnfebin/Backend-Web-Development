@@ -12,15 +12,15 @@ function initSocket(httpServer) {
   io.on('connection', (socket) => {
     console.log(`[+] connected: ${socket.id}`);
 
-    // TODO 2: listen for 'joinRoom' — data: { room } — call socket.join(data.room)
+    // TODO 2: listen for 'joinRoom', data: { room }, call socket.join(data.room)
 
-    // TODO 3: listen for 'leaveRoom' — data: { room } — call socket.leave(data.room)
+    // TODO 3: listen for 'leaveRoom', data: { room }, call socket.leave(data.room)
 
-    // TODO 4: listen for 'newComment' — data: { room, text } — broadcast
+    // TODO 4: listen for 'newComment', data: { room, text }, broadcast
     //         'commentAdded' with that data to everyone in data.room
     //         (use io.to(data.room).emit(), not io.emit())
 
-    // TODO 5: listen for 'disconnect' — log: [-] disconnected: <socket.id> (<reason>)
+    // TODO 5: listen for 'disconnect', log: [-] disconnected: <socket.id> (<reason>)
   });
 
   return io;

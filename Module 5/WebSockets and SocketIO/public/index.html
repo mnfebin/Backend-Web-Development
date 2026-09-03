@@ -28,7 +28,7 @@
   </style>
 </head>
 <body>
-  <h1>Socket.IO Demo — Real-Time Comments</h1>
+  <h1>Socket.IO Demo, Real-Time Comments</h1>
   <div id="status" class="status disconnected">Disconnected</div>
   <div id="roomInfo" class="room-info">Room: none</div>
 
@@ -67,7 +67,7 @@
 
     function updateUI() {
       const connected = socket && socket.connected;
-      statusEl.textContent = connected ? `Connected — ${socket.id}` : 'Disconnected';
+      statusEl.textContent = connected ? `Connected, ${socket.id}` : 'Disconnected';
       statusEl.className = `status ${connected ? 'connected' : 'disconnected'}`;
       roomEl.textContent = `Room: ${inRoom ? ROOM : 'none'}`;
       btnConn.disabled  = !!connected;

@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── YOUR FILE — implement this ───────────────────────────────────────────────
+// ─── YOUR FILE, implement this ───────────────────────────────────────────────
 // In-memory OTP store for email verification.
 //
 // Implement and export:
@@ -24,7 +24,7 @@
 //  markVerified(email)
 //    Log that email is verified. In production: update the DB.
 //
-//  IMPORTANT — also export the Map itself as `_store`:
+//  IMPORTANT, also export the Map itself as `_store`:
 //    module.exports = { generateOTP, storeOTP, verifyOTP, markVerified, _store };
 //    The test suite (Test 6) reaches into `_store` directly to simulate an
 //    already-expired OTP, since there's no other way to fast-forward time.

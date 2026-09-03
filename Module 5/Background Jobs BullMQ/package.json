@@ -1,7 +1,7 @@
 {
   "name": "background-jobs-bullmq",
   "version": "1.0.0",
-  "description": "Background Jobs with BullMQ — email OTP verification",
+  "description": "Background Jobs with BullMQ, email OTP verification",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",

@@ -1,4 +1,4 @@
-# Background Jobs with BullMQ — Email Verification OTP Flow
+# Background Jobs with BullMQ: Email Verification OTP Flow
 
 Registration sends a welcome email synchronously, blocking the request for up to 3,000 ms.
 Move email delivery to a BullMQ background job with retries, and implement a complete
@@ -61,21 +61,21 @@ npm test                   # fails until you implement all three files
 
 ### 3. `src/otpStore.js`
 Implement and export:
-- `generateOTP()` — returns a random 6-digit numeric string.
-- `storeOTP(email, otp)` — stores the OTP in a Map with `expiresAt` (10 minutes from now) and `attempts: 0`.
-- `verifyOTP(email, code)` — checks the OTP and returns `{ ok, reason }`. Enforce **in order**:
+- `generateOTP()`: returns a random 6-digit numeric string.
+- `storeOTP(email, otp)`: stores the OTP in a Map with `expiresAt` (10 minutes from now) and `attempts: 0`.
+- `verifyOTP(email, code)`: checks the OTP and returns `{ ok, reason }`. Enforce **in order**:
   1. Not found → `{ ok: false, reason: 'not_found' }` (route returns 401)
   2. Expired → `{ ok: false, reason: 'expired' }` (route returns 410)
   3. Too many attempts (>= 3) → `{ ok: false, reason: 'too_many_attempts' }` (route returns 429)
   4. Wrong code → increment `attempts`, return `{ ok: false, reason: 'wrong_code' }` (route returns 401)
   5. Correct → delete from store (single-use), return `{ ok: true }`
-- **Also export the Map itself as `_store`:** `module.exports = { generateOTP, storeOTP, verifyOTP, markVerified, _store }`. The test suite reaches into `_store` directly to simulate an already-expired OTP — there's no other way to fast-forward time. Skip this and the expiry test fails even with a correct `verifyOTP()`.
+- **Also export the Map itself as `_store`:** `module.exports = { generateOTP, storeOTP, verifyOTP, markVerified, _store }`. The test suite reaches into `_store` directly to simulate an already-expired OTP, there's no other way to fast-forward time. Skip this and the expiry test fails even with a correct `verifyOTP()`.
 
 ## Rules
 
 - Do not modify `src/app.js`, `src/email.js`, or `tests/run.js`.
 - Redis must be running locally before `npm test`.
-- The worker must be configured with `attempts: 3` and `backoff: exponential` — these are tested.
+- The worker must be configured with `attempts: 3` and `backoff: exponential`, these are tested.
 - The OTP must be exactly 6 digits.
 
 ## Run the tests
@@ -107,7 +107,7 @@ All tests passed! ✓
 | Test 1 fails, or the server crashes on start | `queue.js` not returning a real `Queue`, or Redis isn't running |
 | Emails never arrive (Ethereal inbox empty) | `worker.js` not sending mail, or wrong SMTP credentials in `.env` |
 | Test 5 fails (no 429 after 3 wrong attempts) | Attempt counter not incremented, or checked after the code comparison instead of before |
-| Test 6 fails even though `verifyOTP` looks correct | `_store` not exported from `otpStore.js` — the test can't inject an expired entry |
+| Test 6 fails even though `verifyOTP` looks correct | `_store` not exported from `otpStore.js`, the test can't inject an expired entry |
 | Worker never retries on failure | `attempts` / `backoff` missing from `defaultJobOptions` |
 
 ## Submission
@@ -115,6 +115,6 @@ All tests passed! ✓
 1. Fork or clone this project and create a branch in your own repository.
 2. Implement `src/queue.js`, `src/worker.js`, and `src/otpStore.js`.
 3. Create a `.env` file with Ethereal SMTP credentials (from https://ethereal.email/create).
-4. Run `npm test` — confirm `Results: 6 passed, 0 failed`.
+4. Run `npm test`, confirm `Results: 6 passed, 0 failed`.
 5. Open a PR. In the description, briefly explain: *why does `POST /auth/request-verification` return before the email is sent, and why is the worker configured with retries?*
 6. Submit the PR link.

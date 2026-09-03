@@ -1,13 +1,13 @@
 'use strict';
 
-// ─── GIVEN FILE — do not modify ───────────────────────────────────────────────
+// ─── GIVEN FILE, do not modify ───────────────────────────────────────────────
 require('dotenv').config();
 
 const express = require('express');
 const { emailQueue } = require('./queue');
 const { generateOTP, storeOTP, verifyOTP, markVerified } = require('./otpStore');
 
-// Worker is started by requiring it — runs as long as the process is alive
+// Worker is started by requiring it, runs as long as the process is alive
 require('./worker');
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(express.json());
 
 // POST /auth/request-verification
 // Generates a 6-digit OTP, stores it, and enqueues an email job.
-// Returns 200 immediately — the email is sent asynchronously by the worker.
+// Returns 200 immediately, the email is sent asynchronously by the worker.
 app.post('/auth/request-verification', async (req, res) => {
   try {
     const { email } = req.body;

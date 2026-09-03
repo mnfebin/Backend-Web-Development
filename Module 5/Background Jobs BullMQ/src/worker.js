@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── YOUR FILE — implement this ───────────────────────────────────────────────
+// ─── YOUR FILE, implement this ───────────────────────────────────────────────
 // Create a BullMQ Worker that processes jobs from the 'email' queue.
 //
 // Requirements:

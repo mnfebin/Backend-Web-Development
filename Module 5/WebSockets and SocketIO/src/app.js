@@ -1,6 +1,6 @@
 'use strict';
 
-// ─── GIVEN FILE — do not modify ───────────────────────────────────────────────
+// ─── GIVEN FILE, do not modify ───────────────────────────────────────────────
 // This file creates the shared HTTP server, mounts Express, attaches Socket.IO
 // via initSocket(), and starts listening. Your work goes in src/socket.js.
 
@@ -15,7 +15,7 @@ const httpServer = http.createServer(app);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Health check — not rate-limited, not socket-involved
+// Health check, not rate-limited, not socket-involved
 app.get('/health', (req, res) => res.json({ ok: true }));
 
 // Attach Socket.IO and expose io for REST handlers if needed
