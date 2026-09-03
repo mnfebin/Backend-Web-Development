@@ -1,4 +1,4 @@
-# Introduction to Webhooks
+# Introduction to Webhooks: HMAC Verification & Idempotency
 
 The webhook endpoint `POST /webhooks` currently accepts any POST request without
 verifying the sender. Implement HMAC-SHA256 signature verification, event-id
@@ -105,5 +105,7 @@ All tests passed! ✓
 2. Implement `src/webhookHandler.js`.
 3. Create a `.env` file with `WEBHOOK_SECRET=supersecretkey`.
 4. Run `npm test`, confirm `Results: 5 passed, 0 failed`.
-5. Open a PR. 
+5. Open a PR. In the description, briefly explain: *the three steps the
+   handler performs in order, and why event-id idempotency is necessary even
+   for a handler that returns 200 immediately.*
 6. Submit the PR link.
