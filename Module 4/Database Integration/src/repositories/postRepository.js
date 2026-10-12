@@ -1,36 +1,76 @@
-const seed = require('../data/postSeed');
+const prisma = require('../db/prisma');
 
-// Starter implementation: same async contract, temporary in-memory storage.
-const posts = seed.map((post) => ({ ...post }));
-let nextId = posts.reduce((max, post) => Math.max(max, post.id), 0) + 1;
-
-async function findAll() {
-  return posts.map((post) => ({ ...post }));
+function toId(value) {
+  const id = Number(value);
+  return Number.isSafeInteger(id) && id > 0 ? id : null;
 }
 
-async function findById(id) {
-  return posts.find((post) => post.id === Number(id)) || null;
+function applicationError(message, statusCode) {
+  const error = new Error(message);
+  error.statusCode = statusCode;
+  return error;
+}
+
+function translateDatabaseError(error) {
+  if (error.code === 'P2002') {
+    throw applicationError('A record with these values already exists', 409);
+  }
+  if (error.code === 'P2003') {
+    throw applicationError('The related record does not exist', 409);
+  }
+  throw error;
+}
+
+async function findAll() {
+  return prisma.post.findMany({ orderBy: { id: 'asc' } });
+}
+
+async function findById(value) {
+  const id = toId(value);
+  if (id === null) return null;
+  return prisma.post.findUnique({ where: { id } });
 }
 
 async function create(fields) {
-  const post = { id: nextId++, title: fields.title, body: fields.body || '', authorId: fields.authorId };
-  posts.push(post);
-  return { ...post };
+  const authorId = Number(fields.authorId);
+  if (!Number.isSafeInteger(authorId) || authorId <= 0) {
+    throw applicationError('The related record does not exist', 409);
+  }
+
+  try {
+    return await prisma.post.create({
+      data: {
+        title: fields.title,
+        body: fields.body || '',
+        authorId,
+      },
+    });
+  } catch (error) {
+    translateDatabaseError(error);
+  }
 }
 
-async function update(id, patch) {
-  const post = posts.find((candidate) => candidate.id === Number(id));
-  if (!post) return null;
-  if (patch.title !== undefined) post.title = patch.title;
-  if (patch.body !== undefined) post.body = patch.body;
-  return { ...post };
+async function update(value, patch) {
+  const id = toId(value);
+  if (id === null) return null;
+
+  const data = {};
+  if (patch.title !== undefined) data.title = patch.title;
+  if (patch.body !== undefined) data.body = patch.body;
+
+  try {
+    return await prisma.post.update({ where: { id }, data });
+  } catch (error) {
+    if (error.code === 'P2025') return null;
+    translateDatabaseError(error);
+  }
 }
 
-async function remove(id) {
-  const index = posts.findIndex((post) => post.id === Number(id));
-  if (index === -1) return false;
-  posts.splice(index, 1);
-  return true;
+async function remove(value) {
+  const id = toId(value);
+  if (id === null) return false;
+  const result = await prisma.post.deleteMany({ where: { id } });
+  return result.count > 0;
 }
 
 module.exports = { findAll, findById, create, update, remove };
