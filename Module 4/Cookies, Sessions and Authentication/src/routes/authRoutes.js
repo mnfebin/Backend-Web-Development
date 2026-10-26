@@ -1,14 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const prisma = require('../db/prisma');
+const userRepository = require('../repositories/userRepository');
 const sessionStore = require('../session/sessionStore');
 const requireSession = require('../middleware/requireSession');
 
 const router = express.Router();
 const cookieOptions = {
   httpOnly: true,
-  sameSite: 'strict',
-  secure: process.env.COOKIE_SECURE === 'true',
+  sameSite: 'lax',
+  secure: process.env.NODE_ENV === 'production' || process.env.COOKIE_SECURE === 'true',
   path: '/',
 };
 
@@ -21,9 +21,7 @@ router.post('/login', async (req, res, next) => {
       });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: email.trim().toLowerCase() },
-    });
+    const user = await userRepository.findByEmail(email.trim().toLowerCase());
     if (!user || !(await bcrypt.compare(password, user.passwordHash))) {
       return res.status(401).json({
         error: { code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' },
@@ -52,7 +50,7 @@ router.post('/logout', async (req, res, next) => {
     if (typeof sessionId === 'string') sessionStore.destroy(sessionId);
 
     res.clearCookie('sid', cookieOptions);
-    return res.json({ message: 'Logged out' });
+    return res.status(204).end();
   } catch (error) {
     return next(error);
   }

@@ -1,4 +1,4 @@
-const prisma = require('../db/prisma');
+const userRepository = require('../repositories/userRepository');
 const sessionStore = require('../session/sessionStore');
 
 module.exports = async function requireSession(req, res, next) {
@@ -17,10 +17,7 @@ module.exports = async function requireSession(req, res, next) {
       });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { id: session.userId },
-      select: { id: true, name: true, email: true },
-    });
+    const user = await userRepository.findPublicById(session.userId);
     if (!user) {
       sessionStore.destroy(sessionId);
       return res.status(401).json({
