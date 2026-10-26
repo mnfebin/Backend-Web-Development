@@ -1,0 +1,22 @@
+{
+  "name": "authentication-fundamentals",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Secure registration and login with Express, Prisma, SQLite, and bcryptjs",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "node tests/run.js",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.9.0"
+  }
+}
