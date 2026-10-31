@@ -1,11 +1,3 @@
-// TODO: Implement requireAuth middleware.
-//
-// This function currently calls next() unconditionally — all routes are unprotected.
-// Replace this with a proper implementation that:
-//
-// 1. Reads the Authorization header from the request (req.headers.authorization).
-//    Use `?? ''` so you never work with undefined.
-//
 // 2. Extracts the Bearer token using a strict regex:
 //      /^Bearer ([^\s]+)$/i
 //    If the regex does not match, token = null.
@@ -24,7 +16,26 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // const jwt = require('jsonwebtoken');  ← uncomment when you start implementing
 
+const jwt = require('jsonwebtoken');
+
 module.exports = function requireAuth(req, res, next) {
-  // Replace this with your implementation:
-  next();
+  const authHeader = req.headers.authorization ?? '';
+  const match = authHeader.match(/^Bearer\s+(\S+)$/);
+  const token = match ? match[1] : null;
+
+  if (!token) {
+    return res.status(401).json({
+      error: { code: 'AUTH_REQUIRED', message: 'Authentication required' },
+    });
+  }
+
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET, { algorithms: ['HS256'] });
+    req.user = payload;
+    return next();
+  } catch (error) {
+    return res.status(401).json({
+      error: { code: 'AUTH_REQUIRED', message: 'Authentication required' },
+    });
+  }
 };
